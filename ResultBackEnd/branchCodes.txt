@@ -1,0 +1,23 @@
+CC	Ceramics & Cement Technology
+CV	Civil Engineering
+EV	Environmental Engineering
+AE	Aeronautical Engineering
+ME	Mechanical Engineering
+MI	Mining Engineering
+EE	Electrical & Electronics Engineering
+EC	Electronics & Comm Engineering
+TE	Telecommunication Engineering
+CS	Computer Science & Engineering
+IS	Information Science & Engineering
+IP	Industrial & Production Engineering
+IM	Industrial Engineering & Management
+MA	Manufacturing Science & Engineering
+BM	Biomedical Engineering
+IT	Instrumentation Technology
+ML	Medical Electronics
+BT	Bio-technology
+CH	Chemical Engineering
+PM	Polymer Science & Technology
+ST	Silk Technology
+TX	Textile Technology
+AU	Automobile Engineering

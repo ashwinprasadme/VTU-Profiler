@@ -1,0 +1,234 @@
+{% extends "layout.html" %}
+{% block body %}
+<script type="text/javascript" src="static/js/jquery.slimscroll.min.js"></script>
+<link rel="stylesheet" type="text/css" href="static/css/jquery.fullPage.css" />
+<link rel="stylesheet" type="text/css" href="static/css/examples.css" />
+
+<script type="text/javascript" src="static/js/jquery.fullPage.js"></script>
+
+<style media="screen">
+.section{
+  text-align:center;
+  overflow: hidden;
+}
+
+
+	/*solves problem with overflowing video in Mac with Chrome */
+	#section0{
+		overflow: hidden;
+	}
+
+</style>
+
+
+
+<div id="fullpage">
+
+  <div class="section" id="section1">
+    <div style="width:50%;float:left;vertical-align: middle;">
+
+      <center>
+        <br><br><br><br>
+        <h1>{{ name|safe }}</h1>
+        <h4>Region: {{region|safe}}</h4>
+        <h4>Stream: {{ branch|safe }} </h4>
+        <h4>College: {{ college|safe }}</h4>
+        <!-- <h4>Result{{ tot_per|safe }} %</h4> -->
+      </center>
+    </div>
+
+  <div style="width:50%;float:right;">
+    <div style="width:85%;" class="ct-chart ct-golden-section" id="donut"></div>
+
+ </div>
+
+</div>
+<!-- section 1 END -->
+
+<div class="section " id="section2">
+
+
+    <div style="width:50%;float:left;">
+    <center>
+
+    <table style="width:80%;" border="3" cellpadding="5">
+      <thead>
+      <tr> <th><center>Subject </center></th> <th>Internal Marks</th> <th>External Marks</th> <th>Total Marks</th></tr>
+    </thead>
+    <tbody>
+      {% for i in n %}
+      <tr> <td>{{i+1}}. {{sub[i]}}</td> <td><center>{{intr[i]}}</center></td> <td><center>{{extr[i]}}</center></td> <td><center>{{ intr[i]+extr[i] }}</center></td></tr>
+      {% endfor %}
+    </tbody>
+    </table>
+    </center>
+
+    </div>
+
+    <div style="width:50%;float:right;">
+      <div class="mid">
+        <div class="ct-chart ct-golden-section" id="pie1"></div>
+        <h4><myred>External</myred>+<mylred>Internal</mylred></h5>
+      </div>
+
+
+    </div>
+
+  </div>
+<!-- section2 END-->
+
+<div class="section" id="section3">
+ <center>
+
+
+    <div style="width:80%;">
+
+      <div  class="ct-chart ct-golden-section" id="bar1"></div>
+
+    </div>
+
+     <h4><myred>External</myred>+<mylred>Internal</mylred></h5>
+
+
+  </center>
+
+</div>
+<!-- section 3 END -->
+
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67246156-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+  <script type="text/javascript">
+  		$(document).ready(function() {
+  			$('#fullpage').fullpage({
+  				sectionsColor: ['#ADB1A2','#303030' ,'#ADB1A2'],
+  				anchors: ['Results','Donut', 'Graph'],
+          navigation: true,
+  				navigationPosition: 'right',
+  				navigationTooltips: ['Results', 'Donut', 'Graph'],
+
+  				//equivalent to jQuery `easeOutBack` extracted from http://matthewlein.com/ceaser/
+  				easingcss3: 'cubic-bezier(0.175, 0.585, 0.320, 1.275)'
+  			});
+
+  		});
+  	</script>
+
+
+<script type="text/javascript">
+
+var chart = new Chartist.Pie('#donut', {
+  series: {{ tot|safe }},
+  labels: {{ sub|safe }}
+}, {
+  donut: true,
+  showLabel: true,
+  labelDirection: 'explode',
+  labelOffset: 20
+});
+
+chart.on('draw', function(data) {
+  if(data.type === 'slice') {
+    // Get the total path length in order to use for dash array animation
+    var pathLength = data.element._node.getTotalLength();
+
+    // Set a dasharray that matches the path length as prerequisite to animate dashoffset
+    data.element.attr({
+      'stroke-dasharray': pathLength + 'px ' + pathLength + 'px'
+    });
+
+    // Create animation definition while also assigning an ID to the animation for later sync usage
+    var animationDefinition = {
+      'stroke-dashoffset': {
+        id: 'anim' + data.index,
+        dur: 3500,
+        from: -pathLength + 'px',
+        to:  '0px',
+        easing: Chartist.Svg.Easing.easeOutQuint,
+        // We need to use `fill: 'freeze'` otherwise our animation will fall back to initial (not visible)
+        fill: 'freeze'
+      }
+    };
+
+    // If this was not the first slice, we need to time the animation so that it uses the end sync event of the previous animation
+    if(data.index !== 0) {
+      animationDefinition['stroke-dashoffset'].begin = 'anim' + (data.index - 1) + '.end';
+    }
+
+    // We need to set an initial value before the animation starts as we are not in guided mode which would do that for us
+    data.element.attr({
+      'stroke-dashoffset': -pathLength + 'px'
+    });
+
+    // We can't use guided mode as the animations need to rely on setting begin manually
+    // See http://gionkunz.github.io/chartist-js/api-documentation.html#chartistsvg-function-animate
+    data.element.animate(animationDefinition, false);
+  }
+});
+
+// For the sake of the example we update the chart every time it's created with a delay of 8 seconds
+</script>
+
+
+
+
+<script>
+new Chartist.Bar('#bar1', {
+  labels:{{ sub|safe }},
+  series: [
+    {{ intr|safe }},{{ extr|safe }}
+  ]
+  }, {
+  reverseData: true,
+  horizontalBars: true,
+axisY: {
+  offset: 120
+}
+
+});
+</script>
+
+<script type="text/javascript">
+var data = {
+labels: ['{{ extpr|safe }}', '{{ intpr|safe }}'],
+series: [{{ extpr|safe }}, {{ intpr|safe }}]
+};
+
+var options = {
+labelInterpolationFnc: function(value) {
+  return value[0]
+}
+};
+
+var responsiveOptions = [
+['screen and (min-width: 640px)', {
+  chartPadding: 10,
+  labelOffset: 10,
+  // labelDirection: 'explode',
+  labelInterpolationFnc: function(value) {
+    return value;
+  }
+}],
+['screen and (min-width: 1024px)', {
+  labelOffset: 0,
+  chartPadding: 20
+}]
+];
+
+new Chartist.Pie('#pie1', data, options, responsiveOptions);
+</script>
+  </div>
+
+{% endblock %}

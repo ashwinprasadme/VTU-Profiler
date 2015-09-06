@@ -1,0 +1,78 @@
+<!doctype html>
+<!-- JQuery -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+
+<!-- Chartist -->
+<link rel="stylesheet" href="static/css/chartist.min.css">
+<script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+
+<!-- Waves -->
+<link rel="stylesheet" type="text/css" href="static/css/waves.min.css" />
+
+<!-- fonts -->
+<link href="http://fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css"></link>
+<link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+
+<style media="screen">
+  body { background: #333; color: #fff; margin: 0; padding: 0;background-image: url('http://cdn.backgroundhost.com/backgrounds/subtlepatterns/type.png')}
+
+ #git {
+   text-align: center;
+   margin: auto;
+   position: fixed;
+   -webkit-transform: translate(-50%, -50%);
+   transform: translate(-50%, -50%);
+   bottom: 1%;
+   left: 50%;
+   color:rgba(255, 255, 255, 0.4);
+ }
+
+  #main_div {
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  padding: 10;
+  margin: auto;
+  position: fixed;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);  }
+
+  #gp_plot{
+    /*text-align: center;*/
+    top: 50%;
+    left: 50%;
+
+    width: 50%;
+    height: 50%;
+  }
+
+</style>
+
+
+<title>VTU Profiler</title>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+{% block body %}
+
+{% endblock %}
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67246156-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

@@ -1,0 +1,39 @@
+  {% extends "layout.html" %}
+  {% block body %}
+
+  <div id="main_div">
+
+  <hh1 style="font-family: Lato;font-size: 3em;font-weight: 400;">VTU - Result</hh1>
+
+  <h1 style="font-family: Lato;font-size: 2em;
+  font-weight: 400;">Data Visualization</h1>    <form class="USN" id="USN" method="post">
+        <div class="">
+          <i style="color:rgb(255, 255, 255);background:#1BB556" class="btn float-button-light waves-effect waves-button waves-float waves-light"><input style="background-color:rgba(0,0,0,0);" class="waves-button-input" name="USN" value=""  placeholder="< U S N >" type="text"></i>
+        </div>
+        <!-- <input type="submit" class="usn_button" name="sendUSN"> -->
+
+        <br>
+
+        <i style="color:rgb(255, 255, 255);background:rgb(255, 79, 15)" class="btn float-buttons waves-input-wrapper waves-effect waves-button waves-float"><input style="background-color:rgba(0,0,0,0);" class="waves-button-input" name="sendUSN" value="Plot My Graph" type="submit"></i>
+      </form>
+
+
+      <footer >
+        <h2 style="font-family: Lato;font-size: 1em;
+        font-weight: 400;color:rgba(255, 255, 255, 0.5);">We Dont Store & Monitor Your Results :)</h2>
+      </footer>
+
+
+  </div>
+  <div id="git">
+    Follow Source REPO : GitLabs | GitHub
+  </div>
+
+
+   <script type="text/javascript" src="static/js/waves.min.js"></script>
+   <script type="text/javascript">
+      Waves.attach('.usn_button', ['waves-button', 'waves-float']);
+      Waves.init();
+  </script>
+
+  {% endblock %}

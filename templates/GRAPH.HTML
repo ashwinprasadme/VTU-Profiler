@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+  </head>
+
+  <body>
+    <div style="width:50%; " class="ct-chart ct-square"></div>
+  </body>
+
+  <script type="text/javascript">
+  new Chartist.Bar('.ct-chart', {
+    labels: ['Software Architectures (10IS81)', 'System Modeling and Simulation (10CS82)', 'Software Testing (10CS842)', 'Information and Network Security (10CS835)', 'Project Work (10CS85)', 'Seminar (10CS86)']
+,
+    series: [
+      [77, 55, 46, 35, 97, 10],
+      [25, 19, 17, 18, 90, 36]
+    ]
+  }, {
+    wreverseData: true,
+
+    axisX: {
+    offset: 100
+    }
+  });
+
+  </script>
+</html>
